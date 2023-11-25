@@ -1,6 +1,5 @@
 const heroes = document.getElementById("heroes");
 
-
 async function getHeroes() {
     // Don't wanna make API call all the time, so commenting for now and using value from previous call
     // const response = await fetch("https://api.opendota.com/api/heroes");
