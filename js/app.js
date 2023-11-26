@@ -1,12 +1,18 @@
-function filterHeroesBySubstring(heroes, substring) {
-    return heroes.filter(name => name.localized_name.toLowerCase().includes(substring))
+function heroesBySubstring(hero) {
+    return hero.localized_name.toLowerCase().includes(heroFilter.name);
+}
+
+function heroesByAttribute(hero) {
+    return heroFilter.attribute.includes(hero.primary_attr);
 }
 
 function updateHeroesContainer() {
     const heroesContainer = document.getElementById("heroes-container");
     heroesContainer.innerHTML = "";
 
-    let heroesToShow = filterHeroesBySubstring(heroesArray, heroFilter.name);
+    let heroesToShow = heroesArray
+        .filter(heroesBySubstring)
+        .filter(heroesByAttribute);
 
     for (let hero of heroesToShow) {
         heroesContainer.innerHTML += `<p><a href="/${hero.localized_name.replace(/\s/g, '').toLowerCase()}" onclick="route()">${hero.localized_name}</a><p>`;
@@ -21,7 +27,7 @@ async function getHeroes() {
 }
 
 let heroFilter = {
-    "attribute": null,
+    "attribute": ["str", "agi", "int", "all"],
     "type": null,
     "attack": null,
     "complexity": null,

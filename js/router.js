@@ -15,11 +15,23 @@ const handleLocation = async () => {
         updateHeroesContainer();
 
         const filterName = document.getElementById("filter-name");
+        const filterAtributes = document.querySelectorAll('.filter-atr');
 
         filterName.addEventListener("input", () => {
             heroFilter.name = filterName.value;
             updateHeroesContainer();
-        })
+        });
+
+        filterAtributes.forEach((button) => {
+            button.addEventListener('click', () => {
+                if (heroFilter.attribute.length === 1 && heroFilter.attribute[0] === button.id) {
+                    heroFilter.attribute = ["str", "agi", "int", "all"];
+                } else {
+                    heroFilter.attribute = [button.id];
+                }
+                updateHeroesContainer();
+            });
+        });
     }
 };
 
