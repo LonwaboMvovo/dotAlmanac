@@ -13,6 +13,13 @@ const handleLocation = async () => {
 
     if (path === "/") {
         updateHeroesContainer();
+
+        const filterName = document.getElementById("filter-name");
+
+        filterName.addEventListener("input", () => {
+            heroFilter.name = filterName.value;
+            updateHeroesContainer();
+        })
     }
 };
 

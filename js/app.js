@@ -4,10 +4,11 @@ function filterHeroesBySubstring(heroes, substring) {
 
 function updateHeroesContainer() {
     const heroesContainer = document.getElementById("heroes-container");
+    heroesContainer.innerHTML = "";
 
-    let heroesToShow = [];
+    let heroesToShow = filterHeroesBySubstring(heroesArray, heroFilter.name);
 
-    for (let hero of filterHeroesBySubstring(heroesArray, "")) {
+    for (let hero of heroesToShow) {
         heroesContainer.innerHTML += `<p><a href="/${hero.localized_name.replace(/\s/g, '').toLowerCase()}" onclick="route()">${hero.localized_name}</a><p>`;
     }
 }
