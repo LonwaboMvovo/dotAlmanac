@@ -20,7 +20,7 @@ let routes = {
     "/": "/pages/heroes.html"
 };
 for (let hero of heroesArray) {
-    routes["/" + hero.localized_name] = "/pages/hero.html"
+    routes["/" + hero.localized_name.replace(/\s/g, '').toLowerCase()] = "/pages/hero.html"
 }
 
 window.onpopstate = handleLocation;

@@ -8,7 +8,7 @@ function updateHeroesContainer() {
     let heroesToShow = [];
 
     for (let hero of filterHeroesBySubstring(heroesArray, "")) {
-        heroesContainer.innerHTML += `<p><a href="/${hero.localized_name}" onclick="route()">${hero.localized_name}</a><p>`;
+        heroesContainer.innerHTML += `<p><a href="/${hero.localized_name.replace(/\s/g, '').toLowerCase()}" onclick="route()">${hero.localized_name}</a><p>`;
     }
 }
 
