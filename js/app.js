@@ -1,13 +1,27 @@
-const heroes = document.getElementById("heroes");
+function filterHeroesBySubstring(heroes, substring) {
+    return heroes.filter(name => name.localized_name.toLowerCase().includes(substring))
+}
 
-async function getHeroes() {
-    // Don't wanna make API call all the time, so commenting for now and using value from previous call
-    // const response = await fetch("https://api.opendota.com/api/heroes");
-    // let heroesArray = await response.json();
+function updateHeroesContainer() {
+    const heroesContainer = document.getElementById("heroesContainer");
 
     for (let hero of heroesArray) {
-        heroes.innerHTML += `<p>${hero.localized_name}</p>`;
+        heroesContainer.innerHTML += `<p>${hero.localized_name}</p>`;
     }
 }
 
-document.addEventListener("load", getHeroes());
+async function getHeroes() {
+    const response = await fetch("https://api.opendota.com/api/heroes");
+    let heroesArray = await response.json();
+
+    return heroesArray;
+}
+
+let heroFilter = {
+    "attribute": null,
+    "type": null,
+    "complexity": null,
+    "name": ""
+};
+
+document.addEventListener("load", updateHeroesContainer());

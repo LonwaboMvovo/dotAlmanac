@@ -1722,10 +1722,10 @@ const heroesArray = [
     }
 ];
 
-heroesArray.sort((a, b) => {
+function compareHeroesLocalizedNames(a, b) {
     const nameA = a.localized_name.toLowerCase();
     const nameB = b.localized_name.toLowerCase();
-  
+
     if (nameA < nameB) {
         return -1;
     } else if (nameA > nameB) {
@@ -1733,4 +1733,6 @@ heroesArray.sort((a, b) => {
     }
 
     return 0;
-});
+}
+
+heroesArray.sort(compareHeroesLocalizedNames);
