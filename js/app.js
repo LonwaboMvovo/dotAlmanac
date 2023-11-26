@@ -3,10 +3,12 @@ function filterHeroesBySubstring(heroes, substring) {
 }
 
 function updateHeroesContainer() {
-    const heroesContainer = document.getElementById("heroesContainer");
+    const heroesContainer = document.getElementById("heroes-container");
 
-    for (let hero of heroesArray) {
-        heroesContainer.innerHTML += `<p>${hero.localized_name}</p>`;
+    let heroesToShow = [];
+
+    for (let hero of filterHeroesBySubstring(heroesArray, "")) {
+        heroesContainer.innerHTML += `<p><a href="/${hero.localized_name}" onclick="route()">${hero.localized_name}</a><p>`;
     }
 }
 
@@ -20,8 +22,8 @@ async function getHeroes() {
 let heroFilter = {
     "attribute": null,
     "type": null,
+    "attack": null,
     "complexity": null,
+    "tags": null,
     "name": ""
 };
-
-document.addEventListener("load", updateHeroesContainer());
