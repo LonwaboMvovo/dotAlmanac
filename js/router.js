@@ -18,6 +18,7 @@ const handleLocation = async () => {
         const filterAtribute = document.querySelectorAll(".filter-atr");
         const filterType = document.querySelectorAll(".filter-type");
         const filterAttack = document.querySelectorAll(".filter-attack");
+        const filterTags = document.querySelectorAll(".filter-tags");
 
         filterName.addEventListener("input", () => {
             heroFilter.name = filterName.value;
@@ -58,7 +59,19 @@ const handleLocation = async () => {
                 }
 
                 updateHeroesContainer();
-            })
+            });
+        });
+
+        filterTags.forEach((button) => {
+            button.addEventListener("click", () => {
+                if (heroFilter.tags.includes(button.id)) {
+                    heroFilter.tags = heroFilter.tags.filter((tag) => tag !== button.id);
+                } else {
+                    heroFilter.tags.push(button.id);
+                }
+
+                updateHeroesContainer();
+            });
         });
     }
 };

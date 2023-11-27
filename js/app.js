@@ -14,6 +14,10 @@ function heroesByAttack(hero) {
     return heroFilter.attack.includes(hero.attack_type);
 }
 
+function heroesByTags(hero) {
+    return heroFilter.tags.every((tag) => hero.roles.includes(tag));
+}
+
 function updateHeroesContainer() {
     const heroesContainer = document.getElementById("heroes-container");
     heroesContainer.innerHTML = "";
@@ -22,7 +26,8 @@ function updateHeroesContainer() {
         .filter(heroesBySubstring)
         .filter(heroesByAttribute)
         .filter(heroesByType)
-        .filter(heroesByAttack);
+        .filter(heroesByAttack)
+        .filter(heroesByTags);
 
     for (let hero of heroesToShow) {
         heroesContainer.innerHTML += `<p><a href="/${hero.localized_name.replace(/\s/g, "").toLowerCase()}" onclick="route()">${hero.localized_name}</a><p>`;
@@ -39,6 +44,6 @@ let heroFilter = {
     "attribute": ["str", "agi", "int", "all"],
     "type": ["Carry", "Support"],
     "attack": ["Melee", "Ranged"],
-    "tags": null,
+    "tags": [],
     "name": ""
 };
