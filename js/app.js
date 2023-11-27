@@ -39,7 +39,6 @@ let heroFilter = {
     "attribute": ["str", "agi", "int", "all"],
     "type": ["Carry", "Support"],
     "attack": ["Melee", "Ranged"],
-    "complexity": null,
     "tags": null,
     "name": ""
 };
