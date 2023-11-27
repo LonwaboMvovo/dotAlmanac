@@ -10,6 +10,10 @@ function heroesByType(hero) {
     return heroFilter.type.some((type) => hero.roles.includes(type));
 }
 
+function heroesByAttack(hero) {
+    return heroFilter.attack.includes(hero.attack_type);
+}
+
 function updateHeroesContainer() {
     const heroesContainer = document.getElementById("heroes-container");
     heroesContainer.innerHTML = "";
@@ -17,7 +21,8 @@ function updateHeroesContainer() {
     let heroesToShow = heroesArray
         .filter(heroesBySubstring)
         .filter(heroesByAttribute)
-        .filter(heroesByType);
+        .filter(heroesByType)
+        .filter(heroesByAttack);
 
     for (let hero of heroesToShow) {
         heroesContainer.innerHTML += `<p><a href="/${hero.localized_name.replace(/\s/g, "").toLowerCase()}" onclick="route()">${hero.localized_name}</a><p>`;
@@ -25,15 +30,15 @@ function updateHeroesContainer() {
 }
 
 async function getHeroes() {
-    const response = await fetch("https://api.opendota.com/api/heroes");
+    const response = await fetch("https://api.opendota.com/api/constants/heroes");
     let heroesArray = await response.json();
-    return heroesArray;
+    return Object.values(heroesArray);
 }
 
 let heroFilter = {
     "attribute": ["str", "agi", "int", "all"],
     "type": ["Carry", "Support"],
-    "attack": null,
+    "attack": ["Melee", "Ranged"],
     "complexity": null,
     "tags": null,
     "name": ""

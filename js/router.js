@@ -17,6 +17,7 @@ const handleLocation = async () => {
         const filterName = document.getElementById("filter-name");
         const filterAtribute = document.querySelectorAll(".filter-atr");
         const filterType = document.querySelectorAll(".filter-type");
+        const filterAttack = document.querySelectorAll(".filter-attack");
 
         filterName.addEventListener("input", () => {
             heroFilter.name = filterName.value;
@@ -46,6 +47,18 @@ const handleLocation = async () => {
 
                 updateHeroesContainer();
             });
+        });
+
+        filterAttack.forEach((button) => {
+            button.addEventListener("click", () => {
+                if (heroFilter.attack.length === 1 && heroFilter.attack[0] === button.id) {
+                    heroFilter.attack = ["Melee", "Ranged"];
+                } else {
+                    heroFilter.attack = [button.id];
+                }
+
+                updateHeroesContainer();
+            })
         });
     }
 };
