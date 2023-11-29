@@ -2,6 +2,7 @@ const route = (event) => {
     event = event || window.event;
     event.preventDefault();
     window.history.pushState({}, "", event.target.href);
+
     handleLocation();
 };
 
@@ -9,22 +10,18 @@ const handleLocation = async () => {
     const path = window.location.pathname;
     const route = routes[path] || routes[404];
     const html = await fetch(route).then((data) => data.text());
+
     document.getElementById("main-page").innerHTML = html;
 
     if (path === "/") {
         updateHeroesContainer();
 
-        const filterName = document.getElementById("filter-name");
         const filterAtribute = document.querySelectorAll(".filter-atr");
         const filterType = document.querySelectorAll(".filter-type");
+        const filterComplexity = document.querySelectorAll(".filter-complexity");
         const filterAttack = document.querySelectorAll(".filter-attack");
         const filterTags = document.querySelectorAll(".filter-tags");
-
-        filterName.addEventListener("input", () => {
-            heroFilter.name = filterName.value;
-
-            updateHeroesContainer();
-        });
+        const filterName = document.getElementById("filter-name");
 
         filterAtribute.forEach((button) => {
             button.addEventListener("click", () => {
@@ -41,7 +38,7 @@ const handleLocation = async () => {
         filterType.forEach((button) => {
             button.addEventListener("click", () => {
                 if (heroFilter.type.length === 1 && heroFilter.type[0] === button.id) {
-                    heroFilter.type = ["Carry", "Support"];
+                    heroFilter.type = ["CARRY", "SUPPORT"];
                 } else {
                     heroFilter.type = [button.id];
                 }
@@ -49,6 +46,18 @@ const handleLocation = async () => {
                 updateHeroesContainer();
             });
         });
+
+        filterComplexity.forEach((button) => {
+            button.addEventListener("click", () => {
+                if (heroFilter.complexity.length === 1 && heroFilter.complexity[0] === parseInt(button.id)) {
+                    heroFilter.complexity = [1, 2, 3];
+                } else {
+                    heroFilter.complexity = [parseInt(button.id)];
+                }
+
+                updateHeroesContainer();
+            })
+        })
 
         filterAttack.forEach((button) => {
             button.addEventListener("click", () => {
@@ -73,6 +82,12 @@ const handleLocation = async () => {
                 updateHeroesContainer();
             });
         });
+
+        filterName.addEventListener("input", () => {
+            heroFilter.name = filterName.value;
+
+            updateHeroesContainer();
+        });
     }
 };
 
@@ -80,11 +95,12 @@ let routes = {
     "/": "/pages/heroes.html"
 };
 for (let hero of heroesArray) {
-    routes["/" + hero.localized_name.replace(/\s/g, "").toLowerCase()] = "/pages/hero.html";
+    routes["/" + hero.displayName.replace(/\s/g, "").toLowerCase()] = "/pages/hero.html";
 }
 
 window.onpopstate = handleLocation;
 window.route = route;
 
 window.history.pushState({}, "", "/");
+
 handleLocation();
